@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SpacePirateInventory.Models.Queries.ItemLong>
+@{
+    ViewBag.Title = "Inventory";
+}
+
+@if (ViewBag.displayMenu == "Yes")
+{
+
+    <div class="row mt-5">
+        <div class="col-12">
+            <h1>Inventory List</h1>
+            @Html.ActionLink("Add New Item", "AddItem", "Admin")
+            <table class="table table-dark mt-3">
+                <thead>
+                    <tr>
+                        <th>Item #</th>
+                        <th>Item Name</th>
+                        <th>Category</th>
+                        <th>Actual Value</th>
+                        <th>Display Value</th>
+                        <th>Currency</th>
+                        <th>Edit|Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.ItemId</td>
+                            <td>@item.ItemName</td>
+                            <td>@item.CategoryName</td>
+                            <td>$@item.RealValue</td>
+                            <td>$@item.DisplayValue</td>
+                            <td>@item.CurrencyName</td>
+                            <td>@Html.ActionLink("Edit", "EditItem", "Admin", new { id = item.ItemId }, null) | 
+                            @Html.ActionLink("Delete", "DeleteItem", "Admin", new { id = item.ItemId }, null) 
+                            
+                            @*@using (Html.BeginForm("DeleteItem", "Admin", FormMethod.Post))
+                            {
+                                @Html.Hidden("ItemId", item.ItemId)
+                                <buttn class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item!');">Delete</buttn>
+                            }*@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+}
+else
+{
+    <h2>  Welcome <strong>@ViewBag.Name</strong> :) . Please login to view this page! </h2>
+}
+

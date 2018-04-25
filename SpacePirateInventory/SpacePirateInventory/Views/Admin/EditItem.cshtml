@@ -1,0 +1,95 @@
+﻿@model SpacePirateInventory.Models.ItemEditViewModel
+@{
+    ViewBag.Title = "EditItem";
+}
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-lg-6">
+        @Html.ActionLink("Back to Inventory List", "Inventory", "Admin")
+        <h2 class="mt-5">Edit Item</h2>
+        @using (Html.BeginForm("Edit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "formEditItem" }))
+    {
+        @Html.ValidationSummary()
+        @Html.HiddenFor(i => i.Item.ItemId)
+        <div>
+            <div class="form-group">
+                <label>Item Name</label>
+                <br />
+                @Html.TextBoxFor(i => i.Item.ItemName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Category Name</label>
+                <br />
+                @Html.DropDownListFor(i => i.Item.CategoryId, Model.Categories, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Real Value</label>
+                <br />
+                @Html.TextBoxFor(i => i.Item.RealValue, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Value to display</label>
+                <br />
+                @Html.TextBoxFor(i => i.Item.DisplayValue, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <br />
+                @Html.TextAreaFor(i => i.Item.Description, new { @class = "form-control" })
+            </div>
+            <div class="form-check">
+                @Html.CheckBoxFor(i => i.Item.Favorite, new { @class = "form-check-input" })
+                <label class="form-check-label">Favorite</label>
+            </div>
+            <div class="form-check">
+                @Html.CheckBoxFor(i => i.Item.Featured, new { @class = "form-check-input" })
+                <label class="form-check-label">Featured</label>
+            </div>
+            <div class="form-group">
+                <label>Currency</label>
+                <br />
+                @Html.DropDownListFor(i => i.Item.CurrencyId, Model.Currencies, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <img src="@Url.Content("~/Images/" + Model.Item.ItemPictureURL)" />
+                <label>Image</label>
+                <input id="ImageUpload" name="ImageUpload" type="file" class="form-control" />
+            </div>
+        </div>
+        <button class="btn btn-primary">Edit Item</button>
+}
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#formEditItem').validate({
+                rules: {
+                    'Item.ItemName': {
+                        required: true
+                    },
+                    'Item.RealValue': {
+                        required: true,
+                        number: true
+                    },
+                    'Item.DisplayValue': {
+                        required: true,
+                        number: true,
+                        min: 1
+                    },
+                    'Item.Description': {
+                        required: true
+                    },
+                    'Item.Favorite': {
+                        required: true
+                    },
+                    'Item.Featured': {
+                        required: true
+                    }
+                }
+            });
+        });
+
+    </script>
+}

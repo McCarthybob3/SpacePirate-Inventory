@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Space Pirates Inventory!</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            @Html.ActionLink("Space Pirate Inventory", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @using Microsoft.AspNet.Identity
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <li class="nav-item">@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Inventory", "Index", "Inventory", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Articles", "Articles", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "nav-link" })</li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">@Html.ActionLink("Home", "Index", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Inventory", "Inventory", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Users", "Users", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Articles", "Articles", "Admin", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    
+    <div class="container body-content mt-5">
+        @using Microsoft.AspNet.Identity
+        @if (Request.IsAuthenticated)
+    {
+            
+        <div class="row">
+            <div class="col">
+                <h2>Welcome, @User.Identity.GetUserName()!</h2>
+            </div>
+            <div class="col d-flex justify-content-end">
+                @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                {
+                @Html.AntiForgeryToken()
+                <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-sm btn-primary mb-3">Log Off</a>
+                }
+
+            </div>
+        </div>
+}
+else
+{
+    <div class="jumbotron bg-dark text-white">
+        <div class="row">
+            <div class="col-4">
+                <a href="../Admin/Index ">
+                    <img src="@Url.Content("~/Images/logo.png")" class="img" width="200" height="200" />
+                </a>
+            </div>
+            <div class="col-8">
+                <h1>Welcome Space Pirates!!!!</h1>
+                <p class="lead">
+                    Many say exploration is part of our destiny, but it’s actually our duty to future generations and their quest to ensure the survival of the human species.
+
+                    The path of a cosmonaut is not an easy, triumphant march to glory. You have to get to know the meaning not just of joy but also of grief, before being allowed in the spacecraft cabin.
+                </p>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Created by Team Jarrrrrrg!</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+
+@if (Request.IsAuthenticated)
+{
+    <style>
+        body {
+            background-image: url("../../Images/backgroundadmin.png");
+        }
+    </style>
+}
+else
+{
+    <style>
+        body {
+            background-image: url("../../Images/background.png");
+            color: white;
+        }
+    </style>
+}

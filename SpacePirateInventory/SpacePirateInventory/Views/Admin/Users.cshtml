@@ -1,0 +1,38 @@
+﻿@model IEnumerable<SpacePirateInventory.Models.Queries.UserListItem>
+@{
+    ViewBag.Title = "Users";
+}
+
+@if (ViewBag.displayMenu == "Yes")
+{
+    <div class="row mt-5">
+        <div class="col-12">
+            <h1>User List</h1>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Role</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@user.UserName</td>
+                            <td>@user.Name</td>
+                            <td>@user.Email</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+}
+else
+{
+    <h2>  Welcome <strong>@ViewBag.Name</strong> :) . Please login to view this page! </h2>
+}
+

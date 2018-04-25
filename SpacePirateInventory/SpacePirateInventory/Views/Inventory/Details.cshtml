@@ -1,0 +1,45 @@
+﻿@model SpacePirateInventory.Models.Queries.ItemLong
+@{
+    ViewBag.Title = "Details";
+}
+<body>
+<div class="row">
+    <div class="col-xs-12">
+        <h2>Item Details</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-4">
+        <img src="@Url.Content("~/Images/" + Model.ItemPictureURL)" width="200" length="200" />
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-4">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <td><strong>Item Name:</strong></td>
+                    <td>@Model.ItemName</td>
+                </tr>
+                <tr>
+                    <td><strong>Category:</strong></td>
+                    <td>@Model.CategoryName</td>                 
+                </tr>
+                <tr>
+                    <td><strong>Value:</strong></td>
+                    <td>$@Model.DisplayValue</td>
+                </tr>
+                <tr>
+                    <td><strong>Currency:</strong></td>
+                    <td>@Model.CurrencyName</td>
+                </tr>
+                <tr>
+                    <td><strong>Description:</strong></td>
+                    <td>@Model.Description</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+    </body>
+
+
+

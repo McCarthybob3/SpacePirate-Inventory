@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SpacePirateInventory.Models.Queries.ItemShort>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row mt-3">
+    <div class="col-12">
+        <h2 class="text-center text-white">Featured Inventory</h2>
+    </div>
+
+        @foreach (var item in Model)
+        {
+        <div class="col col-sm-4 col-md-3 mt-3 mb-3">
+            <div class="card h-100 text-center text-white bg-dark">
+                <img src="@Url.Content("~/Images/" + item.ItemPictureURL)" class="card-img-top p-3" alt="@item.ItemName" />
+                <div class="card-body">
+                    <p class="mb-0">@item.ItemName</p>
+                    <p lass="mb-0">@item.DisplayValue.ToString("c")</p>
+                    @Html.ActionLink("Details", "Details", "Inventory", new { id = item.ItemId }, null)
+                </div>
+            </div>
+        </div>
+         }
+
+   
+</div>

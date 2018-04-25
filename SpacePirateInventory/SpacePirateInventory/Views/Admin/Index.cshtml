@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@if (ViewBag.displayMenu == "Yes")
+{
+
+    <div class="row mt-5">
+        <div class="col-6">
+            <ul class="list-group">
+                @Html.ActionLink("View Inventory", "Inventory", "Admin", null, new { @class = "list-group-item" })
+                @Html.ActionLink("View Users", "Users", "Admin", null, new { @class = "list-group-item" })
+                @Html.ActionLink("View Articles", "Articles", "Admin", null, new { @class = "list-group-item" })
+            </ul>
+                
+        </div>
+    </div>
+
+}
+else
+{
+    <h2>  Welcome <strong>@ViewBag.Name</strong> :) . Please login to view this page! </h2>
+}
+

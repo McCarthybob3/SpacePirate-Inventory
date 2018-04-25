@@ -1,0 +1,80 @@
+﻿@model IEnumerable<SpacePirateInventory.Models.Tables.Category>
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div class="row text-white">
+    <div class="col-xs-12">
+        <h2>Search for Items</h2>
+    </div>
+</div>
+<div class="row text-white">
+    <div class="col-xs-12">
+        <form id="searchForm" class="form-inline text-white">
+            <div class="form-group">
+                <label for="minValue">Min Value</label>
+                <input type="text" class="form-control m-2 mr-sm-2" id="minValue">
+            </div>
+            <div class="form-group">
+                <label for="maxValue">Max Value</label>
+                <input type="text" class="form-control m-2 mr-sm-2" id="maxValue">
+            </div>
+            <div class="form-group">
+                <label for="cardName">Item Name</label>
+                <input type="text" class="form-control m-2 mr-sm-2" id="itemName">
+            </div>
+            <div class="form-group">
+                <label for="setName">Category</label>
+                @Html.DropDownList("categoryName", new SelectList(Model, "CategoryName", "CategoryName"), "Any", new { @class = "form-control m-2" })
+            </div>
+            <button type="submit" onclick="search()" class="btn btn-primary mb2">Search</button>
+        </form>
+    </div>
+</div>
+<div id="searchResults" class="row mt-5">
+
+</div>
+
+@section Scripts
+{
+    <script>
+    $(document).ready(function () {
+        $('#searchForm').submit(function (e) {
+            search();
+            return false;
+        });
+    });
+
+       function search() {
+           var params;
+           var imagePath = '@Url.Content("~/Images/")';
+           //Needs to go to the details page
+           var detailsPath = '@Url.Action("Details", "Inventory")/';
+
+           params = 'MinValue=' + $('#minValue').val() + '&MaxValue=' + $('#maxValue').val() + '&ItemName=' + $('#itemName').val() + '&CategoryName=' + $('#categoryName').val()
+           $.ajax({
+               type: 'GET',
+               url: 'http://localhost:56081/Inventory/Details?' + params,
+               success: function (results) {
+                   $('#searchResults').empty();
+
+                   $.each(results, function (index, item) {
+                       var html = '<div class="col col-sm-4 col-md-3 mt-3 mb-3"> <div class="card h-100 text-center text-white bg-dark">' +
+                           '<img src="' + imagePath + item.ItemPictureURL +'" class="card-img-top p-3" alt="'+ item.ItemName +'"/>' +
+                       '<div class="card-body">' +
+                       '<p class="mb-0">' + item.ItemName + '</p>' +
+                           '<p class="mb-0">$' + item.DisplayValue + '</p>' +
+                           '<p><a href="' + detailsPath + item.ItemId + '">view details</a></p>' +
+                       '</div></div></div>';
+
+                       $('#searchResults').append(html);
+                   });
+               },
+               error: function () {
+                   alert('Error performing search. Try again later.')
+               }
+           });
+       }
+    </script>
+}

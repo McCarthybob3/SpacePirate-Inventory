@@ -1,0 +1,93 @@
+﻿@model SpacePirateInventory.Models.ItemAddViewModel
+@{
+    ViewBag.Title = "AddItem";
+}
+<div class="row">
+    <div class="col-xs-12 col-md-6 col-lg-6">
+        @Html.ActionLink("Back to Inventory List", "Inventory", "Admin")
+        <h2 class="mt-5">Add Item</h2>
+        @using (Html.BeginForm("Add", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "formAddItem" }))
+    {
+        @Html.ValidationSummary()
+        <div>
+            <div class="form-group">
+                <label>Item Name</label>
+                @Html.TextBoxFor(i => i.Item.ItemName, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Category Name</label>
+                @Html.DropDownListFor(i => i.Item.CategoryName, Model.Categories, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Real Value</label>
+                @Html.TextBoxFor(i => i.Item.RealValue, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Value to display</label>
+                @Html.TextBoxFor(i => i.Item.DisplayValue, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                @Html.TextAreaFor(i => i.Item.Description, new { @class = "form-control" })
+            </div>
+            <div class="form-check">
+                @Html.CheckBoxFor(i => i.Item.Favorite, new { @class = "form-check-input" })
+                <label class="form-check-label">Favorite</label>
+            </div>
+            <div class="form-check">
+                @Html.CheckBoxFor(i => i.Item.Featured, new { @class = "form-check-input" })
+                <label class="form-check-label">Featured</label>
+            </div>
+            <div class="form-group">
+                <label>Currency</label>
+                @Html.DropDownListFor(i => i.Item.CurrencyName, Model.Currencies, new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label>Image</label>
+                <input id="ImageUpload" name="ImageUpload" type="file" class="form-control" />
+            </div>
+        </div>
+        <button class="btn btn-primary">Add Item</button>
+}
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('#formAddItem').validate({
+                rules: {
+                    'Item.ItemName': {
+                        required: true
+                    },
+                    'Item.RealValue': {
+                        required: true,
+                        number: true
+                    },
+                    'Item.DisplayValue': {
+                        required: true,
+                        number: true,
+                        min: 1
+                    },
+                    'Item.Description': {
+                        required: true
+                    },
+                    'Item.Favorite': {
+                        required: true
+                    },
+                    'Item.Featured': {
+                        required: true
+                    },
+                    'ImageUpload': {
+                        required: true
+                    }
+                }
+            });
+        });
+
+    </script>
+}
+
+
+

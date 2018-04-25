@@ -1,0 +1,42 @@
+﻿@model SpacePirateInventory.Models.ArticleEditViewModel
+@{
+    ViewBag.Title = "EditArticle";
+}
+
+<h2>EditArticle</h2>
+
+@*@if (ViewBag.displayMenu == "Yes")
+{*@
+<div class="row mt-5">
+    <div class="col-12">
+        @Html.ActionLink("Back to Article List", "Articles", "Admin")
+        <h1>Edit Article</h1>
+        @using (Html.BeginForm("EditArticle", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "frmEditArticle", @class= " col" }))
+        {
+            @Html.HiddenFor(i=>i.Article.ArticleId)
+            @Html.ValidationSummary()
+                <div class=" form-group">
+                    <label>Title</label>
+                    @Html.TextBoxFor(m => m.Article.ArticleTitle, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Author</label>
+                    @Html.DropDownListFor(m => m.Article.UserId, Model.User, new { @class = "form-control" })
+                </div>
+                <div class="form-group">
+                    <label>Article Content</label>
+                    @Html.TextAreaFor(m => m.Article.ArticleContent, new { @class = "form-control", rows = "5" })
+                </div>
+                <div class="form-check mb-3">
+                    @Html.CheckBoxFor(i => i.Article.Approved, new { @class = "form-check-input" })
+                    <label class="form-check-label">Approve</label>
+                </div>
+                <button class="btn btn-primary">Save</button> 
+        }
+    </div>
+</div>
+@*}
+else
+{
+<h2>  Welcome <strong>@ViewBag.Name</strong> :) . Please login to view this page! </h2>
+}*@

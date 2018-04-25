@@ -1,0 +1,41 @@
+﻿@model IEnumerable<SpacePirateInventory.Models.Queries.ArticleListItem>
+@{
+    ViewBag.Title = "Articles";
+}
+
+@if (ViewBag.displayMenu == "Yes")
+{
+    <div class="row">
+        <div class="col-12">
+            @Html.ActionLink("Add new Article", "Add", "User")
+            <h1 class="mt-5">Article List</h1>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Approved</th>
+                        <th>Edit|Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var article in Model)
+            {
+                <tr>
+                    <td>@article.ArticleTitle</td>
+                    <td>@article.UserName</td>
+                    <td>@article.Approved</td>
+                    <td>@Html.ActionLink("Edit", "EditArticle", "Admin", new { id = article.ArticleId }, null) | @Html.ActionLink("Delete", "DeleteArticle", "Admin", new { id = article.ArticleId }, null) </td>
+                </tr>
+    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+}
+else
+{
+    <h2>  Welcome <strong>@ViewBag.Name</strong> :) . Please login to view this page! </h2>
+}
+
